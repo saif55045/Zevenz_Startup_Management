@@ -1,0 +1,249 @@
+.plan-detail {
+    max-width: 800px;
+}
+
+.plan-loading,
+.plan-not-found {
+    text-align: center;
+    padding: var(--space-16);
+    color: var(--color-text-muted);
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: var(--space-5);
+    transition: color var(--transition-fast);
+}
+
+.back-btn:hover {
+    color: var(--color-text);
+}
+
+/* Header */
+.plan-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-6);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    margin-bottom: var(--space-5);
+}
+
+.plan-detail-info {
+    flex: 1;
+}
+
+.plan-detail-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: var(--space-3) 0 var(--space-2);
+}
+
+.plan-detail-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-md);
+}
+
+.plan-detail-stats {
+    display: flex;
+    gap: var(--space-6);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-primary-hover);
+}
+
+.stat-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Add Task Form */
+.add-task-form {
+    display: flex;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+}
+
+.add-task-form .input {
+    flex: 1;
+}
+
+/* Tasks List */
+.tasks-list {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.tasks-empty {
+    padding: var(--space-10);
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: background-color var(--transition-fast);
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-item:hover {
+    background-color: var(--color-bg-elevated);
+}
+
+.task-item.done {
+    opacity: 0.6;
+}
+
+.task-left {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    flex: 1;
+}
+
+.task-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.task-icon.todo {
+    border: 2px solid var(--color-text-subtle);
+    color: var(--color-text-subtle);
+}
+
+.task-icon.done {
+    background-color: var(--color-success);
+    color: white;
+}
+
+.task-icon.blocked {
+    background-color: var(--color-warning);
+    color: white;
+}
+
+.task-content {
+    flex: 1;
+}
+
+.task-title {
+    display: block;
+    color: var(--color-text);
+    font-size: var(--font-size-md);
+}
+
+.task-item.done .task-title {
+    text-decoration: line-through;
+}
+
+.task-blocked-reason {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-warning);
+    margin-top: var(--space-1);
+}
+
+.task-actions {
+    display: flex;
+    gap: var(--space-2);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.task-item:hover .task-actions {
+    opacity: 1;
+}
+
+.task-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all var(--transition-fast);
+    background-color: var(--color-bg-hover);
+    color: var(--color-text-muted);
+}
+
+.task-btn:hover.done {
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.task-btn:hover.blocked {
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+.task-btn:hover.todo {
+    background-color: var(--color-primary-glow);
+    color: var(--color-primary-hover);
+}
+
+.task-btn:hover.delete {
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger);
+}
+
+/* Block Reasons */
+.block-reasons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.reason-btn {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--transition-fast);
+}
+
+.reason-btn:hover {
+    background-color: var(--color-warning-bg);
+    border-color: var(--color-warning);
+}

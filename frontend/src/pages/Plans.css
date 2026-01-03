@@ -1,0 +1,165 @@
+.plans-page {
+    max-width: 1000px;
+}
+
+.plans-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+}
+
+.plans-subtitle {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-md);
+}
+
+.plans-loading,
+.plans-empty {
+    text-align: center;
+    padding: var(--space-16);
+    color: var(--color-text-muted);
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: var(--space-4);
+    opacity: 0.5;
+}
+
+.plans-empty h3 {
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+}
+
+/* Plans Grid */
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-5);
+}
+
+.plan-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.plan-card:hover {
+    border-color: var(--color-text-subtle);
+    transform: translateY(-2px);
+}
+
+.plan-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
+}
+
+.plan-status {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+}
+
+.plan-status.purple {
+    background-color: var(--color-primary-glow);
+    color: var(--color-primary-hover);
+}
+
+.plan-status.green {
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.dead-indicator {
+    font-size: var(--font-size-xs);
+    color: var(--color-warning);
+}
+
+.plan-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-2);
+}
+
+.plan-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.plan-progress {
+    margin-bottom: var(--space-3);
+}
+
+.progress-bar {
+    height: 4px;
+    background-color: var(--color-bg-elevated);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: var(--space-2);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+    border-radius: 2px;
+    transition: width var(--transition-base);
+}
+
+.progress-text {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.plan-meta {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--space-4);
+}
+
+.modal {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    width: 100%;
+    max-width: 440px;
+}
+
+.modal-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-5);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+}

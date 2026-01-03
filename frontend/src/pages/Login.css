@@ -1,0 +1,276 @@
+.login-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Branding Section */
+.login-branding {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+    overflow: hidden;
+}
+
+.login-branding-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+}
+
+.login-branding-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: var(--space-8);
+}
+
+.login-brand-logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-6);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 0 60px rgba(99, 102, 241, 0.4);
+}
+
+.login-brand-title {
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-4);
+}
+
+.login-brand-tagline {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    line-height: 1.8;
+}
+
+/* Form Section */
+.login-form-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8);
+    background-color: var(--color-bg);
+}
+
+.login-form-container {
+    width: 100%;
+    max-width: 380px;
+}
+
+.login-header {
+    margin-bottom: var(--space-8);
+}
+
+.login-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-2);
+}
+
+.login-subtitle {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-md);
+}
+
+.login-btn {
+    width: 100%;
+    padding: var(--space-4);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    margin-top: var(--space-2);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: var(--space-8);
+    color: var(--color-text-subtle);
+    font-size: var(--font-size-sm);
+}
+
+@media (max-width: 900px) {
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .login-branding {
+        display: none;
+    }
+}
+
+/* Forgot Password Link */
+.forgot-password-link {
+    background: none;
+    border: none;
+    color: var(--color-primary-hover);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: var(--space-4);
+    text-align: left;
+    transition: color var(--transition-fast);
+}
+
+.forgot-password-link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--space-4);
+}
+
+/* Forgot Password Modal */
+.forgot-modal {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+.forgot-modal h3 {
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+}
+
+.forgot-desc {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-5);
+    line-height: 1.6;
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    padding: var(--space-1);
+    transition: color var(--transition-fast);
+}
+
+.modal-close:hover {
+    color: var(--color-text);
+}
+
+/* Reset Success State */
+.reset-success {
+    text-align: center;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+}
+
+.reset-code-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    background-color: var(--color-bg-elevated);
+    border: 2px dashed var(--color-primary);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin: var(--space-4) 0;
+}
+
+.reset-code {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: var(--color-primary-hover);
+    letter-spacing: 0.2em;
+}
+
+.copy-btn {
+    background-color: var(--color-bg-hover);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-btn:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.reset-instructions {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    margin-top: var(--space-3);
+}
+
+.reset-expiry {
+    color: var(--color-warning);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    margin-top: var(--space-3);
+}
+
+/* Reset Error State */
+.reset-error {
+    text-align: center;
+}
+
+.error-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+}

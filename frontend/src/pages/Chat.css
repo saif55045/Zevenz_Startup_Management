@@ -1,0 +1,178 @@
+.chat-page {
+    height: calc(100vh - var(--topbar-height) - var(--space-12));
+    max-width: 900px;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+/* Messages Area */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-4);
+}
+
+.chat-loading,
+.chat-empty {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+}
+
+/* Date Divider */
+.date-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--space-4) 0;
+}
+
+.date-divider span {
+    background-color: var(--color-bg-elevated);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* Message */
+.message {
+    display: flex;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+    max-width: 70%;
+}
+
+.message.own {
+    margin-left: auto;
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: white;
+    flex-shrink: 0;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-sender {
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+    margin-left: var(--space-3);
+}
+
+.message-bubble {
+    background-color: var(--color-bg-elevated);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    border-top-left-radius: var(--radius-sm);
+}
+
+.message.own .message-bubble {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-strong) 100%);
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-sm);
+}
+
+.message-bubble p {
+    margin: 0;
+    color: var(--color-text);
+    font-size: var(--font-size-md);
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.message.own .message-bubble p {
+    color: white;
+}
+
+.message-time {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+    margin-top: var(--space-1);
+    text-align: right;
+}
+
+.message.own .message-time {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Input Area */
+.chat-input-area {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-bg-card);
+}
+
+.chat-input {
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-family);
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.chat-input::placeholder {
+    color: var(--color-text-subtle);
+}
+
+.chat-input:focus {
+    border-color: var(--color-primary);
+}
+
+.chat-send-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-strong) 100%);
+    border: none;
+    border-radius: var(--radius-full);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.chat-send-btn:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+.chat-send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

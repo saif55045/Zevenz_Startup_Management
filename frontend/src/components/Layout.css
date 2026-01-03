@@ -1,0 +1,15 @@
+.layout {
+    min-height: 100vh;
+    background-color: var(--color-bg);
+}
+
+.layout-main {
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+}
+
+.layout-content {
+    padding: var(--space-6);
+    padding-top: calc(var(--topbar-height) + var(--space-6));
+    max-width: 1200px;
+}

@@ -18,6 +18,10 @@ const dashboardRoutes = require('./src/routes/dashboard');
 const profileRoutes = require('./src/routes/profile');
 
 const app = express();
+
+// Trust proxy (required for rate limiting behind load balancers like Render/Koyeb)
+app.set('trust proxy', 1);
+
 const server = http.createServer(app);
 
 // Allowed origins for CORS

@@ -10,22 +10,34 @@ const seedUsers = [
         status: 'ACTIVE'
     },
     {
-        name: 'Founder One',
-        email: 'founder1@zevenz.com',
-        password: 'password123',
+        name: 'Faizan',
+        email: 'faizan@zevenz.com',
+        password: 'faizan123',
         status: 'ACTIVE'
     },
     {
-        name: 'Founder Two',
-        email: 'founder2@zevenz.com',
-        password: 'password123',
+        name: 'Ahtasham',
+        email: 'ahtasham@zevenz.com',
+        password: 'ahtasham123',
         status: 'ACTIVE'
     },
     {
-        name: 'Founder Three',
-        email: 'founder3@zevenz.com',
-        password: 'password123',
-        status: 'OUT'
+        name: 'Hassan Raza',
+        email: 'hassan@zevenz.com',
+        password: 'hassan123',
+        status: 'ACTIVE'
+    },
+    {
+        name: 'Ibrahim',
+        email: 'ibrahim@zevenz.com',
+        password: 'ibrahim123',
+        status: 'ACTIVE'
+    },
+    {
+        name: 'Farhan Akhtar',
+        email: 'farhan@zevenz.com',
+        password: 'farhan123',
+        status: 'ACTIVE'
     }
 ];
 
@@ -34,21 +46,15 @@ const seedDatabase = async () => {
         await mongoose.connect(process.env.MONGODB_URI);
         console.log('Connected to MongoDB');
 
-        // Check and create users
-        for (const userData of seedUsers) {
-            const existingUser = await User.findOne({ email: userData.email });
+        // Clear existing users
+        await User.deleteMany({});
+        console.log('Cleared existing users');
 
-            if (!existingUser) {
-                const user = new User(userData);
-                await user.save();
-                console.log(`Created user: ${userData.email}`);
-            } else {
-                console.log(`User already exists: ${userData.email}`);
-                // Optional: Update existing user if needed
-                // existingUser.name = userData.name;
-                // existingUser.status = userData.status;
-                // await existingUser.save();
-            }
+        // Create seed users
+        for (const userData of seedUsers) {
+            const user = new User(userData);
+            await user.save();
+            console.log(`Created user: ${userData.email}`);
         }
 
         console.log('Database seeded successfully!');

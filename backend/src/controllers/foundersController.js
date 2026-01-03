@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const getFounders = async (req, res) => {
     try {
         const founders = await User.find()
-            .select('name email status consistencyScore consecutiveAbsences createdAt')
+            .select('name email avatar status consistencyScore consecutiveAbsences createdAt')
             .sort({ status: 1, name: 1 });
         res.json(founders);
     } catch (error) {

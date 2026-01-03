@@ -121,9 +121,13 @@ const Chat = () => {
                                             className={`message ${msg.sender._id === user?._id ? 'own' : ''}`}
                                         >
                                             {msg.sender._id !== user?._id && (
-                                                <div className="message-avatar">
-                                                    {getInitials(msg.sender.name)}
-                                                </div>
+                                                msg.sender.avatar ? (
+                                                    <img src={msg.sender.avatar} alt={msg.sender.name} className="message-avatar-img" />
+                                                ) : (
+                                                    <div className="message-avatar">
+                                                        {getInitials(msg.sender.name)}
+                                                    </div>
+                                                )
                                             )}
                                             <div className="message-content">
                                                 {msg.sender._id !== user?._id && (

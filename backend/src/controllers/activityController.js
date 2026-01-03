@@ -78,7 +78,7 @@ const getAllActivities = async (req, res) => {
         }
 
         const activities = await Activity.find(query)
-            .populate('user', 'name email')
+            .populate('user', 'name email avatar')
             .sort({ date: -1, createdAt: -1 })
             .limit(date ? 100 : 50); // Show more results when filtering by date
         res.json(activities);

@@ -7,7 +7,7 @@ const getMessages = async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) || 50;
         const messages = await Message.find()
-            .populate('sender', 'name email status')
+            .populate('sender', 'name email avatar status')
             .sort({ createdAt: -1 })
             .limit(limit);
 
@@ -34,7 +34,7 @@ const sendMessage = async (req, res) => {
             content: content.trim()
         });
 
-        await message.populate('sender', 'name email status');
+        await message.populate('sender', 'name email avatar status');
 
         // Emit to all connected clients via Socket.io
         const io = req.app.get('io');

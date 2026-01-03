@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { profileAPI } from '../services/profileApi';
 import { useNavigate } from 'react-router-dom';
 import PasswordInput from '../components/PasswordInput';
+import ImageCropper from '../components/ImageCropper';
 import './Profile.css';
 
 const Profile = () => {
@@ -19,6 +20,10 @@ const Profile = () => {
     const [message, setMessage] = useState({ type: '', text: '' });
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [activeTab, setActiveTab] = useState('profile');
+
+    // Image cropper state
+    const [showCropper, setShowCropper] = useState(false);
+    const [cropImageSrc, setCropImageSrc] = useState(null);
 
     useEffect(() => {
         if (user) {
@@ -36,7 +41,7 @@ const Profile = () => {
         setLoading(true);
         try {
             await profileAPI.update(formData);
-            if (refreshUser) refreshUser();
+            if (refreshUser) await refreshUser();
             showMessage('success', 'Profile updated successfully');
         } catch (err) {
             showMessage('error', err.response?.data?.message || 'Failed to update profile');
@@ -66,26 +71,43 @@ const Profile = () => {
         }
     };
 
-    const handleAvatarChange = async (e) => {
+    const handleAvatarChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-        if (file.size > 2 * 1024 * 1024) {
-            showMessage('error', 'Image must be less than 2MB');
+        if (file.size > 10 * 1024 * 1024) {
+            showMessage('error', 'Image must be less than 10MB');
             return;
         }
 
+        // Read file and show cropper
         const reader = new FileReader();
-        reader.onloadend = async () => {
-            try {
-                await profileAPI.uploadAvatar(reader.result);
-                if (refreshUser) refreshUser();
-                showMessage('success', 'Avatar updated successfully');
-            } catch (err) {
-                showMessage('error', 'Failed to upload avatar');
-            }
-        };
         reader.readAsDataURL(file);
+        reader.onload = () => {
+            setCropImageSrc(reader.result);
+            setShowCropper(true);
+        };
+
+        // Reset file input so same file can be selected again
+        e.target.value = '';
+    };
+
+    const handleCropComplete = async (croppedImage) => {
+        setShowCropper(false);
+        setCropImageSrc(null);
+
+        try {
+            await profileAPI.uploadAvatar(croppedImage);
+            if (refreshUser) await refreshUser();
+            showMessage('success', 'Avatar updated successfully');
+        } catch (err) {
+            showMessage('error', 'Failed to upload avatar');
+        }
+    };
+
+    const handleCropCancel = () => {
+        setShowCropper(false);
+        setCropImageSrc(null);
     };
 
     const handleDeleteAccount = async () => {
@@ -284,6 +306,15 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
+                )}
+
+                {/* Image Cropper Modal */}
+                {showCropper && cropImageSrc && (
+                    <ImageCropper
+                        imageSrc={cropImageSrc}
+                        onCropComplete={handleCropComplete}
+                        onCancel={handleCropCancel}
+                    />
                 )}
             </div>
         </Layout>

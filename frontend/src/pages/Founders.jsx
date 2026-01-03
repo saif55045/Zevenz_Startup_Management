@@ -165,9 +165,13 @@ const Founders = () => {
                     {founders.map((founder) => (
                         <div key={founder._id} className="founder-card">
                             <div className="founder-avatar-section">
-                                <div className="founder-avatar">
-                                    {getInitials(founder.name)}
-                                </div>
+                                {founder.avatar ? (
+                                    <img src={founder.avatar} alt={founder.name} className="founder-avatar-img" />
+                                ) : (
+                                    <div className="founder-avatar">
+                                        {getInitials(founder.name)}
+                                    </div>
+                                )}
                                 <span className={`badge badge-${founder.status.toLowerCase()}`}>
                                     {founder.status}
                                 </span>

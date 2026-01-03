@@ -220,7 +220,11 @@ const Activity = () => {
                                     <div className="history-item-header">
                                         {activeTab === 'team' && (
                                             <div className="history-user">
-                                                <div className="history-avatar">{getInitials(activity.user?.name)}</div>
+                                                {activity.user?.avatar ? (
+                                                    <img src={activity.user.avatar} alt={activity.user.name} className="history-avatar-img" />
+                                                ) : (
+                                                    <div className="history-avatar">{getInitials(activity.user?.name)}</div>
+                                                )}
                                                 <span className="history-name">{activity.user?.name}</span>
                                             </div>
                                         )}

@@ -189,6 +189,13 @@
     color: white;
 }
 
+.history-avatar-img {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+}
+
 .history-name {
     font-size: var(--font-size-sm);
     font-weight: 500;

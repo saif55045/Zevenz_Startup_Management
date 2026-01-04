@@ -146,10 +146,10 @@ const runManualAttendance = async (req, res) => {
             return res.status(400).json({ message: 'Invalid date format. Use YYYY-MM-DD' });
         }
 
-        // Don't allow future dates
+        // Don't allow today or future dates - only allow yesterday or earlier
         const today = getTodayDate();
-        if (date > today) {
-            return res.status(400).json({ message: 'Cannot run attendance for future dates' });
+        if (date >= today) {
+            return res.status(400).json({ message: 'Cannot run attendance for today. Only past dates allowed.' });
         }
 
         // Don't allow dates older than 7 days

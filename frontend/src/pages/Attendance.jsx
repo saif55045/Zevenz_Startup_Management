@@ -127,6 +127,12 @@ const Attendance = () => {
         return date.toISOString().split('T')[0];
     };
 
+    const getYesterdayDate = () => {
+        const date = new Date();
+        date.setDate(date.getDate() - 1);
+        return date.toISOString().split('T')[0];
+    };
+
     const handleManualRun = async (e) => {
         e.preventDefault();
         if (!manualDate) {
@@ -408,10 +414,10 @@ const Attendance = () => {
                                     value={manualDate}
                                     onChange={(e) => setManualDate(e.target.value)}
                                     min={getSevenDaysAgo()}
-                                    max={getTodayDate()}
+                                    max={getYesterdayDate()}
                                     required
                                 />
-                                <span className="form-hint">Only last 7 days can be processed</span>
+                                <span className="form-hint">Only past dates (up to 7 days ago) can be processed</span>
                             </div>
 
                             <div className="modal-actions">

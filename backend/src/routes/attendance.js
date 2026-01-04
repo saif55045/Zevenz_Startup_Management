@@ -5,7 +5,8 @@ const {
     getTeamAttendance,
     submitAbsenceReason,
     requestLeave,
-    getAttendanceStats
+    getAttendanceStats,
+    runManualAttendance
 } = require('../controllers/attendanceController');
 const { protect, requireActive } = require('../middleware/auth');
 
@@ -17,6 +18,7 @@ router.get('/team', getTeamAttendance);
 router.get('/stats', getAttendanceStats);
 router.post('/reason', submitAbsenceReason);
 router.post('/leave', requireActive, requestLeave);
+router.post('/run-manual', requireActive, runManualAttendance);
 
 module.exports = router;
 

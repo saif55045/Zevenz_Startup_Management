@@ -22,6 +22,11 @@ const Attendance = () => {
     // Leaves list state
     const [teamLeaves, setTeamLeaves] = useState([]);
 
+    // Manual attendance state
+    const [showManualModal, setShowManualModal] = useState(false);
+    const [manualDate, setManualDate] = useState('');
+    const [runningManual, setRunningManual] = useState(false);
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -116,6 +121,33 @@ const Attendance = () => {
         return maxDate.toISOString().split('T')[0];
     };
 
+    const getSevenDaysAgo = () => {
+        const date = new Date();
+        date.setDate(date.getDate() - 7);
+        return date.toISOString().split('T')[0];
+    };
+
+    const handleManualRun = async (e) => {
+        e.preventDefault();
+        if (!manualDate) {
+            setMessage({ type: 'error', text: 'Please select a date' });
+            return;
+        }
+
+        setRunningManual(true);
+        try {
+            await attendanceAPI.runManual(manualDate);
+            setMessage({ type: 'success', text: `Attendance processed for ${manualDate}` });
+            setShowManualModal(false);
+            setManualDate('');
+            fetchData(); // Refresh data
+        } catch (err) {
+            setMessage({ type: 'error', text: err.response?.data?.message || 'Failed to run attendance' });
+        } finally {
+            setRunningManual(false);
+        }
+    };
+
     if (loading) {
         return (
             <Layout title="Attendance">
@@ -134,9 +166,19 @@ const Attendance = () => {
                     </div>
                 )}
 
-                {/* Page Header with Request Leave Button */}
+                {/* Page Header with Actions */}
                 {user?.status === 'ACTIVE' && (
                     <div className="attendance-header">
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => setShowManualModal(true)}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="1 4 1 10 7 10"></polyline>
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                            </svg>
+                            Run Past Attendance
+                        </button>
                         <button
                             className="leave-request-btn"
                             onClick={() => setShowLeaveModal(true)}
@@ -341,6 +383,51 @@ const Attendance = () => {
                                     disabled={submittingLeave}
                                 >
                                     {submittingLeave ? 'Submitting...' : 'Submit Request'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Manual Attendance Modal */}
+            {showManualModal && (
+                <div className="modal-overlay" onClick={() => setShowManualModal(false)}>
+                    <div className="modal leave-modal" onClick={e => e.stopPropagation()}>
+                        <h3>Run Past Attendance</h3>
+                        <p className="modal-subtitle">
+                            Process attendance for a day when the automatic cron missed (server was sleeping).
+                            This marks users as PRESENT or ABSENT based on their activity posts.
+                        </p>
+
+                        <form onSubmit={handleManualRun}>
+                            <div className="form-group">
+                                <label>Select Date</label>
+                                <input
+                                    type="date"
+                                    value={manualDate}
+                                    onChange={(e) => setManualDate(e.target.value)}
+                                    min={getSevenDaysAgo()}
+                                    max={getTodayDate()}
+                                    required
+                                />
+                                <span className="form-hint">Only last 7 days can be processed</span>
+                            </div>
+
+                            <div className="modal-actions">
+                                <button
+                                    type="button"
+                                    className="btn-cancel"
+                                    onClick={() => setShowManualModal(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="btn-submit"
+                                    disabled={runningManual}
+                                >
+                                    {runningManual ? 'Processing...' : 'Run Attendance'}
                                 </button>
                             </div>
                         </form>

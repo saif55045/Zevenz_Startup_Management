@@ -1,5 +1,6 @@
 const Attendance = require('../models/Attendance');
 const User = require('../models/User');
+const { processAttendance } = require('../jobs/attendanceCron');
 
 // Get today's date in YYYY-MM-DD format
 const getTodayDate = () => {
@@ -128,10 +129,53 @@ const getAttendanceStats = async (req, res) => {
     }
 };
 
+// @desc    Run attendance processing for a specific date (manual trigger)
+// @route   POST /api/attendance/run-manual
+// @access  Private (ACTIVE only)
+const runManualAttendance = async (req, res) => {
+    try {
+        const { date } = req.body;
+
+        if (!date) {
+            return res.status(400).json({ message: 'Date is required (YYYY-MM-DD format)' });
+        }
+
+        // Validate date format
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!dateRegex.test(date)) {
+            return res.status(400).json({ message: 'Invalid date format. Use YYYY-MM-DD' });
+        }
+
+        // Don't allow future dates
+        const today = getTodayDate();
+        if (date > today) {
+            return res.status(400).json({ message: 'Cannot run attendance for future dates' });
+        }
+
+        // Don't allow dates older than 7 days
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        const sevenDaysAgoStr = sevenDaysAgo.toISOString().split('T')[0];
+        if (date < sevenDaysAgoStr) {
+            return res.status(400).json({ message: 'Cannot run attendance for dates older than 7 days' });
+        }
+
+        console.log(`[Manual Attendance] Triggered by ${req.user.name} for date: ${date}`);
+
+        await processAttendance(date);
+
+        res.json({ message: `Attendance processed successfully for ${date}` });
+    } catch (error) {
+        console.error('[Manual Attendance] Error:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
 module.exports = {
     getMyAttendance,
     getTeamAttendance,
     submitAbsenceReason,
     requestLeave,
-    getAttendanceStats
+    getAttendanceStats,
+    runManualAttendance
 };

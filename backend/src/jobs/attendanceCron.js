@@ -121,5 +121,6 @@ const initAttendanceCron = () => {
 };
 
 module.exports = {
-    initAttendanceCron
+    initAttendanceCron,
+    processAttendance // Export for manual API calls
 };

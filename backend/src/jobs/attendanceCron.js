@@ -59,26 +59,30 @@ const processAttendance = async (dateToProcess) => {
             } else {
                 // No activity - mark ABSENT
                 if (!attendance) {
+                    // Only create record and increment if no existing record
                     attendance = await Attendance.create({
                         user: user._id,
                         date: dateToProcess,
                         status: 'ABSENT'
                     });
+
+                    // Increment consecutive absences ONLY for new absence records
+                    user.consecutiveAbsences += 1;
+                    user.pendingAbsenceReason = true;
+
+                    console.log(`[Attendance Cron] ${user.name}: ABSENT (${user.consecutiveAbsences} consecutive)`);
+
+                    // Check if user should be marked OUT (3 consecutive absences)
+                    if (user.consecutiveAbsences >= 3) {
+                        user.status = 'OUT';
+                        console.log(`[Attendance Cron] ${user.name}: Marked as OUT due to 3 consecutive absences`);
+                    }
+
+                    await user.save();
+                } else {
+                    // Attendance already exists, just log it
+                    console.log(`[Attendance Cron] ${user.name}: Already marked ABSENT for ${dateToProcess}`);
                 }
-
-                // Increment consecutive absences
-                user.consecutiveAbsences += 1;
-                user.pendingAbsenceReason = true;
-
-                console.log(`[Attendance Cron] ${user.name}: ABSENT (${user.consecutiveAbsences} consecutive)`);
-
-                // Check if user should be marked OUT (3 consecutive absences)
-                if (user.consecutiveAbsences >= 3) {
-                    user.status = 'OUT';
-                    console.log(`[Attendance Cron] ${user.name}: Marked as OUT due to 3 consecutive absences`);
-                }
-
-                await user.save();
             }
         }
 
